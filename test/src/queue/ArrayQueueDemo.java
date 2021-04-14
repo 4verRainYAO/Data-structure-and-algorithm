@@ -4,12 +4,42 @@ public class ArrayQueueDemo {
     public static void main(String[] args) {
         ArrayQueue arrayQueue = new ArrayQueue(3);
         arrayQueue.add(1);
-        System.out.println(arrayQueue.peek());
-        System.out.println(arrayQueue.getFront());
-//        int n = 0;
-//        System.out.println(n+1);
-//        System.out.println(n++);
-//        System.out.println(++n);
+        arrayQueue.show();
+        System.out.println("rear:"+arrayQueue.getRear()+"=====front:"+arrayQueue.getFront());
+        System.out.println("队列头数据:"+arrayQueue.peek());
+        System.out.println(arrayQueue.get());
+        arrayQueue.show();
+        System.out.println("rear:"+arrayQueue.getRear()+"=====front:"+arrayQueue.getFront());
+        System.out.println("====================");
+
+        arrayQueue.add(2);
+        arrayQueue.show();
+        System.out.println("rear:"+arrayQueue.getRear()+"=====front:"+arrayQueue.getFront());
+        System.out.println("队列头数据:"+arrayQueue.peek());
+        System.out.println(arrayQueue.get());
+        arrayQueue.show();
+        System.out.println("rear:"+arrayQueue.getRear()+"=====front:"+arrayQueue.getFront());
+        System.out.println("====================");
+
+        arrayQueue.add(3);
+        arrayQueue.show();
+        System.out.println("rear:"+arrayQueue.getRear()+"=====front:"+arrayQueue.getFront());
+        System.out.println("队列头数据:"+arrayQueue.peek());
+        System.out.println(arrayQueue.get());
+        arrayQueue.show();
+        System.out.println("rear:"+arrayQueue.getRear()+"=====front:"+arrayQueue.getFront());
+        System.out.println("====================");
+
+        arrayQueue.add(4);
+        arrayQueue.show();
+        System.out.println("rear:"+arrayQueue.getRear()+"=====front:"+arrayQueue.getFront());
+        System.out.println(arrayQueue.get());
+        arrayQueue.show();
+        System.out.println("rear:"+arrayQueue.getRear()+"=====front:"+arrayQueue.getFront());
+        System.out.println("====================");
+
+
+
     }
 }
 class ArrayQueue{
@@ -57,7 +87,7 @@ class ArrayQueue{
     /**
      * 队列取元素
      */
-    public int get(int n){
+    public int get(){
         if(isEmpty()){
             return -1;
         }
@@ -84,7 +114,8 @@ class ArrayQueue{
             return -1;
         }
         return arr[front+1];
-    }  public int getMaxSize() {
+    }
+    public int getMaxSize() {
         return maxSize;
     }
 
