@@ -1,117 +1,115 @@
 package queue;
 
-public class ArrayQueueDemo {
+/**
+ * 环形队列实现
+ */
+public class CircleArrayQueueDemo {
     public static void main(String[] args) {
-        ArrayQueue arrayQueue = new ArrayQueue(3);
+        CircleArrayQueue arrayQueue = new CircleArrayQueue(3);
         arrayQueue.add(1);
         arrayQueue.show();
-        System.out.println("rear:"+arrayQueue.getRear()+"=====front:"+arrayQueue.getFront());
-        System.out.println("队列头数据:"+arrayQueue.peek());
         System.out.println(arrayQueue.get());
         arrayQueue.show();
-        System.out.println("rear:"+arrayQueue.getRear()+"=====front:"+arrayQueue.getFront());
         System.out.println("====================");
 
         arrayQueue.add(2);
         arrayQueue.show();
-        System.out.println("rear:"+arrayQueue.getRear()+"=====front:"+arrayQueue.getFront());
-        System.out.println("队列头数据:"+arrayQueue.peek());
         System.out.println(arrayQueue.get());
         arrayQueue.show();
-        System.out.println("rear:"+arrayQueue.getRear()+"=====front:"+arrayQueue.getFront());
         System.out.println("====================");
 
         arrayQueue.add(3);
         arrayQueue.show();
-        System.out.println("rear:"+arrayQueue.getRear()+"=====front:"+arrayQueue.getFront());
-        System.out.println("队列头数据:"+arrayQueue.peek());
         System.out.println(arrayQueue.get());
         arrayQueue.show();
-        System.out.println("rear:"+arrayQueue.getRear()+"=====front:"+arrayQueue.getFront());
         System.out.println("====================");
 
         arrayQueue.add(4);
         arrayQueue.show();
-        System.out.println("rear:"+arrayQueue.getRear()+"=====front:"+arrayQueue.getFront());
         System.out.println(arrayQueue.get());
         arrayQueue.show();
-        System.out.println("rear:"+arrayQueue.getRear()+"=====front:"+arrayQueue.getFront());
         System.out.println("====================");
+
+        arrayQueue.add(5);
+        arrayQueue.show();
     }
 }
-class ArrayQueue{
-    private int maxSize; //数组最大容量
-    private int rear;//队列尾
-    private int front;//队列头
-    private int[] arr;//存数据，模拟队列
+class CircleArrayQueue{
+    private int maxSize;
+    //rear执行队列的最后一个元素的后一个位置，arr[rear-1]是队列的最后一个元素，rear初始值==0
+    private int rear;
+    //front指向队列的第一个元素，arr[front]是队列的第一个元素，front初始值==0
+    private int front;
 
-    public ArrayQueue(int maxSize) {
+    private int[] arr;
+
+    public CircleArrayQueue(int maxSize){
         this.maxSize = maxSize;
-        rear=-1;//指向队列的尾部，队列的最后一个数据
-        front=-1;//指向队列的头部的前一个位置
         arr = new int[maxSize];
     }
-    /**
-     * 队列是否满了
-     */
+
     public boolean isFull(){
-        if(rear==maxSize-1){
+        if((rear+1)%maxSize==front){
             return true;
         }
         return false;
     }
-    /**
-     * 队列是否为空
-     */
     public boolean isEmpty(){
         if(rear==front){
             return true;
         }
         return false;
     }
-    /**
-     * 队列添加元素
-     */
     public void add(int n){
         if(isFull()){
             return;
         }
-        //rear后移
-        rear++;
-        //添加
+        //直接将数据加入
         arr[rear] = n;
+        //将rear后移，取模
+        rear = (rear+1)%maxSize;
     }
-    /**
-     * 队列取元素
-     */
     public int get(){
         if(isEmpty()){
             return -1;
         }
-        front++;
-        return arr[front];
+        //front是指向队列的第一个元素
+        //1.front 对应的值保留到临时变量
+        int value = arr[front];
+        //2.front 后移 取模
+        front = (front+1)%maxSize;
+        //3.临时变量返回
+        return value;
     }
-    /**
-     * 显示队列的所有数据
-     */
     public void show(){
         if(isEmpty()){
             System.out.println("队列空");
         }
-        for(int i=0;i<arr.length;i++){
-            System.out.println("第"+i+"元素是"+arr[i]);
+
+        for(int i=0;i<front+size();i++){
+            System.out.println("第"+i%maxSize+"元素是"+arr[i%maxSize]);
         }
     }
+
     /**
-     * 显示头数据，不取出
+     * 求出当前队列的有效数据个数
+     * @return
      */
-    public int peek(){
-        //判断
+    public int size(){
+        return (rear+maxSize-front)%maxSize;
+    }
+
+    /**
+     * 显示头元素
+     * @return
+     */
+    public int head(){
         if(isEmpty()){
             return -1;
         }
-        return arr[front+1];
+        return arr[front];
     }
+
     public int getMaxSize() {
         return maxSize;
     }
@@ -143,5 +141,4 @@ class ArrayQueue{
     public void setArr(int[] arr) {
         this.arr = arr;
     }
-
 }
