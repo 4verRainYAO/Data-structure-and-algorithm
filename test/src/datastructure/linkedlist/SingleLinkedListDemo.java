@@ -19,16 +19,24 @@ public class SingleLinkedListDemo {
 //        singleLinkedList.update(node4);
 //        singleLinkedList.list();
         //删除节点
-        singleLinkedList.delete(1);
+//        singleLinkedList.delete(1);
         singleLinkedList.delete(2);
 //        singleLinkedList.delete(3);
         singleLinkedList.list();
+        //返回链表有效节点的个数
+        int length = singleLinkedList.getLength(singleLinkedList.getHead());
+        System.out.println("有效的节点个数"+length);
     }
 }
 
 class SingleLinkedList{
     //初始化头结点，头结点不动,不存放具体数据
     private Node head = new Node(0,"","");
+
+    public Node getHead() {
+        return head;
+    }
+
 
     /**
      * 添加节点到单项链表，添加到最末尾
@@ -156,6 +164,28 @@ class SingleLinkedList{
             System.out.println(temp);
             temp = temp.next;
         }
+    }
+
+
+    /**
+     * 统计单链表的有效节点的个数，去掉头结点
+     * @param headNode 链表的头结点
+     * @return 返回有效节点的个数
+     */
+    public int getLength(Node headNode){
+        int sum = 0;
+        if(headNode.next==null){
+            return sum;
+        }
+        Node temp = headNode;
+        while (true){
+            if(temp.next==null){
+                break;
+            }
+            temp = temp.next;
+            sum++;
+        }
+        return sum;
     }
 }
 
