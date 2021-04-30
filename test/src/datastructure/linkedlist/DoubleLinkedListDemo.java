@@ -69,15 +69,9 @@ class DoubleLinkedList{
      * 添加节点，尾插法
      */
     public void addNodeOnTail(DoubleNode doubleNode){
-        if(head.next==null){
-            head.next = doubleNode;
-            doubleNode.pre = head;
-            return;
-        }
-        DoubleNode temp = head.next;
+        DoubleNode temp = head;
         while(true){
             if(temp.next==null){
-                //说明当前节点就是最后一个了
                 break;
             }
             temp = temp.next;
