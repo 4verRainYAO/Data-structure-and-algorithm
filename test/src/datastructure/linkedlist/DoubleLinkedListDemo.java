@@ -7,17 +7,24 @@ public class DoubleLinkedListDemo {
         DoubleNode node2 = new DoubleNode(2);
         DoubleNode node3 = new DoubleNode(3);
         DoubleNode node4 = new DoubleNode(4);
-        doubleLinkedList.addNodeOnTail(node1);
-        doubleLinkedList.addNodeOnTail(node2);
-        doubleLinkedList.addNodeOnTail(node3);
-        doubleLinkedList.addNodeOnTail(node4);
+//        doubleLinkedList.addNodeOnTail(node1);
+//        doubleLinkedList.addNodeOnTail(node2);
+//        doubleLinkedList.addNodeOnTail(node3);
+//        doubleLinkedList.addNodeOnTail(node4);
+        doubleLinkedList.addNodeOnHead(node1);
+        doubleLinkedList.addNodeOnHead(node2);
+        doubleLinkedList.addNodeOnHead(node3);
+        doubleLinkedList.addNodeOnHead(node4);
+
         System.out.println("从前往后遍历");
         doubleLinkedList.listFrontToBack();
+        System.out.println("从后往前遍历");
+        doubleLinkedList.listBackToFront(node4);
     }
 }
 class DoubleLinkedList{
     //初始化头结点
-    private DoubleNode head = new DoubleNode(0);
+    private DoubleNode head = new DoubleNode();
 
     public DoubleNode getHead() {
         return head;
@@ -43,8 +50,19 @@ class DoubleLinkedList{
     /**
      * 遍历从后往前
      */
-    public void listBackToFront(){
-
+    public void listBackToFront(DoubleNode endNode){
+        if(endNode.next!=null){
+            System.out.println("不是尾结点");
+            return;
+        }
+        DoubleNode temp = endNode;
+        while(true){
+            if(temp==null){
+                break;
+            }
+            System.out.println(temp);
+            temp = temp.pre;
+        }
     }
 
     /**
@@ -53,6 +71,7 @@ class DoubleLinkedList{
     public void addNodeOnTail(DoubleNode doubleNode){
         if(head.next==null){
             head.next = doubleNode;
+            doubleNode.pre = head;
             return;
         }
         DoubleNode temp = head.next;
@@ -65,12 +84,16 @@ class DoubleLinkedList{
         }
         temp.next = doubleNode;
         doubleNode.pre = temp;
-        doubleNode.next = head;
     }
 
+    /**
+     * 头插法
+     * @param doubleNode
+     */
     public void addNodeOnHead(DoubleNode doubleNode){
         if(head.next==null){
             head.next = doubleNode;
+//            doubleNode.pre = head;
             return;
         }
         DoubleNode temp = head.next;
@@ -89,6 +112,9 @@ class DoubleNode{
 
     public DoubleNode(int val) {
         this.val = val;
+    }
+    public DoubleNode(){
+
     }
 
     @Override
