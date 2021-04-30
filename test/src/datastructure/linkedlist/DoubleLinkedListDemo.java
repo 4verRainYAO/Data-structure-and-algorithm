@@ -97,10 +97,39 @@ class DoubleLinkedList{
         doubleNode.next = temp;
     }
 
+    /**
+     * 删除节点
+     * 1.直接找到要删除的该节点，而不是前一个节点
+     */
+    public void deleteNode(int no){
+        if(head.next==null){
+            System.out.println("链表为空，不能删除");
+            return;
+        }
+        DoubleNode temp = head.next;
+        boolean flag = false;//是否找到了该节点
+        while(true){
+            if(temp == null){
+                break;
+            }
+            if(temp.val==no){
+                flag = true;
+                break;
+            }
+            temp = temp.next;
+        }
+        if(flag){
+            if(temp.next!=null){
+                temp.next.pre = temp.pre;
+            }
+            temp.pre.next = temp.next;
+        }
+        System.out.println("没找到要删除的节点");
+    }
 }
 //创建双向链表类
 class DoubleNode{
-    private int val;
+    public int val;
     public DoubleNode pre; //指向前一个节点，默认null
     public DoubleNode next;//指向后一个节点，默认null
 
